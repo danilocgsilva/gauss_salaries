@@ -27,10 +27,28 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <p>Total: {{ total_pessoas }}</p>
         </div>
 
         <div class="colb">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Salário</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pessoa_e_salario in pessoas_e_seus_salarios_python %}
+                    <tr>
+                        <td>{{ pessoa_e_salario.nome }}</td>
+                        <td>{{ pessoa_e_salario.salario|filtro1 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="colc">
             <table>
                 <thead>
                     <tr>
@@ -48,6 +66,7 @@
                 </tbody>
             </table>
         </div>
+
     </div>
 </body>
 

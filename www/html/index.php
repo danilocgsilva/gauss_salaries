@@ -1,11 +1,12 @@
 <?php
-use Danilocgsilva\Gauss\Pair;
-use Danilocgsilva\Gauss\PessoaSalario;
+use Danilocgsilva\Gauss\Gerador;
+use Danilocgsilva\Gauss\Stats;
 
 require_once ("../vendor/autoload.php");
 
-use Danilocgsilva\Gauss\SalaryFaker;
-use Danilocgsilva\Gauss\Stats;
+
+
+
 
 $twig = new \Twig\Environment(
     new \Twig\Loader\FilesystemLoader('../views')
@@ -22,21 +23,18 @@ $twig->addFilter(
     })
 );
 
-$faker = \Faker\Factory::create();
+$gerador = new Gerador();
 
 /** @var \Danilocgsilva\Gauss\PessoaSalario[] */
-$pessoasESeusSalarios = [];
+$pessoasESeusSalarios = $gerador->phpPessoas();
 
-for ($i = 0; $i < 100; $i++) {
-    $pessoasESeusSalarios[] = new PessoaSalario(
-        $faker->name,
-        SalaryFaker::amount()
-    );
-}
+/** @var \Danilocgsilva\Gauss\PessoaSalario[] */
+$pessoasESalariosDoPython = $gerador->pythonPessoas();
 
 print(
     $twig->render('index.twig', [
         'pessoas_e_seus_salarios' => $pessoasESeusSalarios,
+        'pessoas_e_seus_salarios_python' => $pessoasESalariosDoPython,
         'stats' => (new Stats($pessoasESeusSalarios))->get(),
         'total_pessoas' => count($pessoasESeusSalarios)
     ])
