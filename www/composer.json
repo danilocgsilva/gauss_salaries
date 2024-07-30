@@ -1,0 +1,19 @@
+{
+    "name": "danilocgsilva/gauss",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Danilocgsilva\\Gauss\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Danilo Silva",
+            "email": "contact@danilocgsilva.me"
+        }
+    ],
+    "require": {
+        "twig/twig": "^3.0",
+        "fakerphp/faker": "^1.23"
+    }
+}

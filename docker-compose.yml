@@ -1,0 +1,20 @@
+services:
+  env:
+    build:
+      context: .
+    ports:
+      - 81:80
+    volumes:
+      - ./www:/var/www
+    working_dir: /var/www
+    links:
+      - pythonenv
+  pythonenv:
+    build:
+      context: .
+      dockerfile: DockerfilePython
+    volumes:
+      - ./flask:/app
+    ports:
+      - 82:5000
+    working_dir: /app

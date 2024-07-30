@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="cola">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Salário</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pessoa_e_salario in pessoas_e_seus_salarios %}
+                    <tr>
+                        <td>{{ pessoa_e_salario.nome }}</td>
+                        <td>{{ pessoa_e_salario.salario|filtro1 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <p>Total: {{ total_pessoas }}</p>
+        </div>
+
+        <div class="colb">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Salário</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in stats %}
+                    <tr>
+                        <td>{{ entry.range }}</td>
+                        <td>{{ entry.quantidade }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

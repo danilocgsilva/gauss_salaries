@@ -1,0 +1,12 @@
+FROM debian:bookworm-slim
+
+ENV FLASK_APP /app/wsgi.py
+RUN apt-get update
+RUN apt-get upgrade -y
+RUN apt-get install curl git zip -y
+RUN apt-get install python3 -y
+RUN apt-get install python3-pip -y
+RUN pip install -U Flask --break-system-packages
+RUN pip install Faker --break-system-packages
+
+CMD flask run --host=0.0.0.0
