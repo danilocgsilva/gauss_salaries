@@ -9,7 +9,7 @@ class Gerador
 {
     private FakerGenerator $faker;
 
-    public function __construct()
+    public function __construct(private int $count)
     {
         $this->faker = \Faker\Factory::create();
     }
@@ -17,33 +17,30 @@ class Gerador
     /**
      * @return \Danilocgsilva\Gauss\PessoaSalario[]
      */
-    public function phpPessoas(): array
-    {
-        /** @var \Danilocgsilva\Gauss\PessoaSalario[] */
-        $pessoasESeusSalarios = [];
-        for ($i = 0; $i < 100; $i++) {
-            $pessoasESeusSalarios[] = new PessoaSalario(
-                $this->faker->name,
-                SalaryFaker::amount()
-            );
-        }
-        return $pessoasESeusSalarios;
-    }
-
-    public function pythonPessoas(): array
+    public function getPessoasESalarios(): array
     {
         return array_map(
-            fn ($entry) => new PessoaSalario($entry->nome, $entry->salario),
-            json_decode(
-                (
-                    (new HttpClient())->request(
-                        'GET',
-                        "http://pythonenvgauss:5000"
-                    )
+            fn ($entry) => new PessoaSalario($this->faker->name, $entry),
+            $this->getNormalDistribuition()
+        );
+    }
+
+    public function getNormalDistribuition(): array
+    {
+        return json_decode(
+            (
+                (new HttpClient())->request(
+                    'GET',
+                    "http://pythonenvgauss:5000/normal",
+                    [
+                        'query' => [
+                            'count' => $this->count
+                        ]
+                    ]
                 )
+            )
                 ->getBody()
                 ->getContents()
-            )
         );
     }
 }

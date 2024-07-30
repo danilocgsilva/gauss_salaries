@@ -1,37 +1,19 @@
 from flask import Flask
-from flask import render_template
-from faker import Faker
-from Salario import Salario
+from flask import request
+from numpy import random
 
 app = Flask(__name__)
-
-@app.route("/")
-def hello():
-    faker = Faker()
-
-    pessoas = []
-    for i in range(1, 101):
-        salario = Salario()
-        
-        pessoas.append({
-            'nome': faker.name(),
-            'salario': salario.getSalario()
-        })
     
-    return pessoas
+@app.route("/normal")
+def normal():
+    request_args = request.args
+    count_arg = request_args["count"]
+    count = int(count_arg)
+    
+    x = random.normal(loc=10000, scale=4000, size=(1, count))
+    
+    valores = []
+    for valor in x[0]:
+        valores.append(valor)
 
-@app.route("/round")
-def helloJinja():
-    
-    entity1 = 17.002
-    entity2 = 1
-    entity3 = 17.001
-    resultado = entity1 + entity2 - entity3
-    
-    return render_template(
-        'round.html',
-        entity1=entity1,
-        entity2=entity2,
-        entity3=entity3,
-        resultado=resultado
-    )
+    return valores

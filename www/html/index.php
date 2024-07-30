@@ -5,6 +5,12 @@ use Danilocgsilva\Gauss\Stats;
 
 require_once ("../vendor/autoload.php");
 
+if (
+    !($count = (int) filter_var($_GET["count"]))
+) {
+    $count = 100;
+}
+
 $twig = new \Twig\Environment(
     new \Twig\Loader\FilesystemLoader('../views')
 );
@@ -20,13 +26,10 @@ $twig->addFilter(
     })
 );
 
-$gerador = new Gerador();
+$gerador = new Gerador($count);
 
 /** @var \Danilocgsilva\Gauss\PessoaSalario[] */
-$pessoasESeusSalarios = $gerador->phpPessoas();
-
-/** @var \Danilocgsilva\Gauss\PessoaSalario[] */
-$pessoasESalariosDoPython = $gerador->pythonPessoas();
+$pessoasESeusSalarios = $gerador->getPessoasESalarios();
 
 print(
     $twig->render('index.twig', [

@@ -19,10 +19,18 @@ class Stats
 
     private function calcularRanges()
     {
-        $range1 = [];
-        $range2 = [];
-        $range3 = [];
-        $range4 = [];
+        // $range1 = [];
+        // $range2 = [];
+        // $range3 = [];
+        // $range4 = [];
+        $ranges = [];
+        $lower = 0;
+        $amountIteration = 5000;
+        for ($i = 0; $i < 4; $i++) {
+            $lower = $lower + ($i * $amountIteration);
+            $higher = ($i + 1) * $amountIteration;
+            $ranges[] = [$lower, $higher];
+        }
 
         foreach ($this->pessoasESalarios as $pessoaSalario) {
             if ($pessoaSalario->salario < 5000.99) {

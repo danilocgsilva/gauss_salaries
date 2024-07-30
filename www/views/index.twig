@@ -38,25 +38,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for pessoa_e_salario in pessoas_e_seus_salarios_python %}
-                    <tr>
-                        <td>{{ pessoa_e_salario.nome }}</td>
-                        <td>{{ pessoa_e_salario.salario|filtro1 }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-
-        <div class="colc">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Salário</th>
-                    </tr>
-                </thead>
-                <tbody>
                     {% for entry in stats %}
                     <tr>
                         <td>{{ entry.range }}</td>
