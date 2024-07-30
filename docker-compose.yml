@@ -1,5 +1,5 @@
 services:
-  env:
+  phpenvgauss:
     build:
       context: .
     ports:
@@ -8,8 +8,8 @@ services:
       - ./www:/var/www
     working_dir: /var/www
     links:
-      - pythonenv
-  pythonenv:
+      - pythonenvgauss
+  pythonenvgauss:
     build:
       context: .
       dockerfile: DockerfilePython

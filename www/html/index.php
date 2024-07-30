@@ -1,12 +1,9 @@
 <?php
+
 use Danilocgsilva\Gauss\Gerador;
 use Danilocgsilva\Gauss\Stats;
 
 require_once ("../vendor/autoload.php");
-
-
-
-
 
 $twig = new \Twig\Environment(
     new \Twig\Loader\FilesystemLoader('../views')

@@ -38,7 +38,7 @@ class Gerador
                 (
                     (new HttpClient())->request(
                         'GET',
-                        "http://pythonenv:5000"
+                        "http://pythonenvgauss:5000"
                     )
                 )
                 ->getBody()

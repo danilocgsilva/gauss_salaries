@@ -1,4 +1,5 @@
 from flask import Flask
+from flask import render_template
 from faker import Faker
 from Salario import Salario
 
@@ -18,3 +19,19 @@ def hello():
         })
     
     return pessoas
+
+@app.route("/round")
+def helloJinja():
+    
+    entity1 = 17.002
+    entity2 = 1
+    entity3 = 17.001
+    resultado = entity1 + entity2 - entity3
+    
+    return render_template(
+        'round.html',
+        entity1=entity1,
+        entity2=entity2,
+        entity3=entity3,
+        resultado=resultado
+    )
