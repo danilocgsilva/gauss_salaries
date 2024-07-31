@@ -7,7 +7,7 @@ class Stats
     /** @var PessoaSalario[] */
     private array $pessoasESalarios;
     
-    public function __construct(array $pessoasESalarios)
+    public function __construct(array $pessoasESalarios, private int $split)
     {
         $this->pessoasESalarios = $pessoasESalarios;
     }
@@ -19,51 +19,38 @@ class Stats
 
     private function calcularRanges()
     {
-        // $range1 = [];
-        // $range2 = [];
-        // $range3 = [];
-        // $range4 = [];
+        $maxValue = 20000;
         $ranges = [];
         $lower = 0;
-        $amountIteration = 5000;
-        for ($i = 0; $i < 4; $i++) {
-            $lower = $lower + ($i * $amountIteration);
-            $higher = ($i + 1) * $amountIteration;
-            $ranges[] = [$lower, $higher];
+        for ($i = 0; $i < (int) ($maxValue / $this->split); $i++) {
+            $lower = $this->split * $i;
+            $higher = $this->split * ($i + 1);
+            $ranges[] = [
+                'lower' => $lower, 
+                'higher' => $higher,
+                'range_title' => (string) $lower . " - " . (string) $higher,
+                'pessoa_e_salario' => []
+            ];
         }
 
         foreach ($this->pessoasESalarios as $pessoaSalario) {
-            if ($pessoaSalario->salario < 5000.99) {
-                $range1[] = $pessoaSalario;
-            }
-            elseif ($pessoaSalario->salario >= 5000.99 && $pessoaSalario->salario < 10000.99) {
-                $range2[] = $pessoaSalario;
-            }
-            elseif ($pessoaSalario->salario >= 10000.99 && $pessoaSalario->salario < 15000.99) {
-                $range3[] = $pessoaSalario;
-            }
-            elseif ($pessoaSalario->salario >= 15000.99) {
-                $range4[] = $pessoaSalario;
+            foreach ($ranges as $key => $range) {
+                $lowerRangeString = (string) $range["lower"] . ".99";
+                $higherRangeString = (string) $range["higher"] . ".99";
+                $lowerRangeStringFloat = (float) $lowerRangeString;
+                $higherRangeStringFloat = (float) $higherRangeString;
+                if ($pessoaSalario->salario >= $lowerRangeStringFloat && $pessoaSalario->salario < $higherRangeStringFloat) {
+                    $ranges[$key]["pessoa_e_salario"][] = $pessoaSalario;
+                }
             }
         }
-        
-        return [
-            [
-                'range' => '1000 - 5000',
-                'quantidade' => count($range1)
+
+        return array_map(
+            fn ($range) => [
+                'range' => $range['range_title'],
+                'quantidade' => count($range['pessoa_e_salario'])
             ],
-            [
-                'range' => '5001 - 10.000',
-                'quantidade' => count($range2)
-            ],
-            [
-                'range' => '10.001 - 15.000',
-                'quantidade' => count($range3)
-            ],
-            [
-                'range' => '15.001 - 20.000',
-                'quantidade' => count($range4)
-            ]
-        ];
+            $ranges
+        );
     }
 }

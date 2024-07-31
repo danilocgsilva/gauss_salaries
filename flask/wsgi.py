@@ -10,7 +10,7 @@ def normal():
     count_arg = request_args["count"]
     count = int(count_arg)
     
-    x = random.normal(loc=10000, scale=4000, size=(1, count))
+    x = random.normal(loc=6000, scale=4000, size=(1, count))
     
     valores = []
     for valor in x[0]:
