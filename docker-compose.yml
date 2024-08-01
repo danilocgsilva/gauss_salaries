@@ -9,6 +9,7 @@ services:
     working_dir: /var/www
     links:
       - pythonenvgauss
+    container_name: phpenvgauss
   pythonenvgauss:
     build:
       context: .
@@ -18,3 +19,4 @@ services:
     ports:
       - 82:5000
     working_dir: /app
+    container_name: pythonenvgauss
