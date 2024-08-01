@@ -9,4 +9,5 @@ RUN apt-get install python3-pip -y
 RUN pip install -U Flask --break-system-packages
 RUN pip install numpy --break-system-packages
 
+# CMD flask run --host=0.0.0.0
 CMD while : ; do sleep 1000; done
